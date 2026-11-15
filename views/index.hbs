@@ -1,0 +1,87 @@
+<h1 class="mb-3">{{title}}</h1>
+
+<p class="bg-body-tertiary rounded-3 px-3 py-2">
+  <span class="me-3">Total de oficinas: <strong class="text-primary">{{resumo.total}}</strong></span>
+  <span class="me-3">Abertas: <strong class="text-success">{{resumo.abertas}}</strong></span>
+  <span class="me-3">Encerradas: <strong class="text-danger">{{resumo.encerradas}}</strong></span>
+  <span>Carga horária das abertas: <strong class="text-info-emphasis">{{resumo.cargaHorariaAbertas}} h</strong></span>
+</p>
+
+<ul class="nav nav-pills mb-3">
+  <li class="nav-item">
+    <a class="nav-link {{#if somenteAbertas}}link-dark{{else}}active bg-dark{{/if}}" href="/">Todas as Oficinas</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link {{#if somenteAbertas}}active bg-success{{else}}link-success{{/if}}" href="/abertas">Inscrições Abertas</a>
+  </li>
+</ul>
+
+{{#if resumo.total}}
+  {{#if oficinas.length}}
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <thead class="table-primary text-center">
+          <tr>
+            <th scope="col">Título</th>
+            <th scope="col">Carga horária</th>
+            <th scope="col">Inscrições</th>
+            <th scope="col">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each oficinas}}
+            <tr>
+              <th scope="row">{{titulo}}</th>
+              <td class="text-center">{{cargaHoraria}} h</td>
+              {{#if inscricoesAbertas}}
+                <td class="text-center text-success fw-semibold">Abertas</td>
+              {{else}}
+                <td class="text-center text-danger fw-semibold">Encerradas</td>
+              {{/if}}
+              <td>
+                <div class="d-flex flex-wrap justify-content-center gap-1">
+                  <a href="/oficinas/{{id}}" class="btn btn-info btn-sm">Consultar</a>
+                  <a href="/oficinas/{{id}}/editar" class="btn btn-warning btn-sm">Editar</a>
+                  <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalExcluir{{id}}">Excluir</button>
+                  <form action="/oficinas/{{id}}/alternar" method="post">
+                    {{#if inscricoesAbertas}}
+                      <button type="submit" class="btn btn-secondary btn-sm">Encerrar</button>
+                    {{else}}
+                      <button type="submit" class="btn btn-success btn-sm">Reabrir</button>
+                    {{/if}}
+                  </form>
+                </div>
+              </td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+
+    {{#each oficinas}}
+      <div class="modal fade" id="modalExcluir{{id}}" tabindex="-1" aria-labelledby="modalExcluirTitulo{{id}}" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header text-bg-danger">
+              <h1 class="modal-title fs-5" id="modalExcluirTitulo{{id}}">Excluir oficina</h1>
+            </div>
+            <div class="modal-body">
+              Confirma a exclusão de <strong>{{titulo}}</strong>?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+              <form action="/oficinas/{{id}}/excluir" method="post">
+                <button type="submit" class="btn btn-danger">Confirmar</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    {{/each}}
+  {{else}}
+    <p>Nenhuma oficina está com inscrições abertas.</p>
+  {{/if}}
+{{else}}
+  <p>Nenhuma oficina cadastrada.</p>
+  <a href="/oficinas/nova" class="btn btn-success">Cadastrar a primeira oficina</a>
+{{/if}}

@@ -1,0 +1,23 @@
+<h1 class="mb-3">{{title}}</h1>
+
+<dl>
+  <dt>ID</dt>
+  <dd>{{oficina.id}}</dd>
+
+  <dt>Título</dt>
+  <dd>{{oficina.titulo}}</dd>
+
+  <dt>Responsável</dt>
+  <dd>{{oficina.responsavel}}</dd>
+
+  <dt>Carga horária total</dt>
+  <dd>{{oficina.cargaHoraria}} h</dd>
+
+  <dt>Inscrições</dt>
+  <dd>{{#if oficina.inscricoesAbertas}}Abertas{{else}}Encerradas{{/if}}</dd>
+
+  <dt>Descrição</dt>
+  <dd><pre class="bg-body-tertiary rounded-3 p-3">{{oficina.descricao}}</pre></dd>
+</dl>
+
+<a href="/oficinas/{{oficina.id}}/editar" class="btn btn-warning">Editar</a>

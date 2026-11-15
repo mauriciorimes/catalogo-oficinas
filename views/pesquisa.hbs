@@ -1,0 +1,23 @@
+<h1 class="mb-3">{{title}}</h1>
+
+<form action="/oficinas/pesquisa" method="post" class="mb-3">
+  <div class="mb-3">
+    <label for="termo" class="form-label">Título da oficina</label>
+    <input type="text" class="form-control" id="termo" name="termo" value="{{termo}}" required>
+  </div>
+  <button type="submit" class="btn btn-dark">Pesquisar</button>
+</form>
+
+{{#if pesquisou}}
+  {{#if oficinas.length}}
+    <ul>
+      {{#each oficinas}}
+        <li><a href="/oficinas/{{id}}">{{titulo}}</a></li>
+      {{/each}}
+    </ul>
+  {{else}}
+    <p>Nenhuma oficina encontrada com o termo "{{termo}}".</p>
+  {{/if}}
+{{else}}
+  <p>Digite um termo para pesquisar pelo título da oficina.</p>
+{{/if}}

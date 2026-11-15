@@ -1,0 +1,26 @@
+<h1 class="mb-3">{{title}}</h1>
+
+{{#if erro}}
+  <div class="alert alert-danger" role="alert">{{erro}}</div>
+{{/if}}
+
+<form action="/oficinas/{{oficina.id}}/editar" method="post">
+  <div class="mb-3">
+    <label for="titulo" class="form-label">Título</label>
+    <input type="text" class="form-control" id="titulo" name="titulo" value="{{oficina.titulo}}" required>
+  </div>
+  <div class="mb-3">
+    <label for="responsavel" class="form-label">Responsável</label>
+    <input type="text" class="form-control" id="responsavel" name="responsavel" value="{{oficina.responsavel}}" required>
+  </div>
+  <div class="mb-3">
+    <label for="descricao" class="form-label">Descrição</label>
+    <textarea class="form-control" id="descricao" name="descricao" rows="4" required>{{oficina.descricao}}</textarea>
+  </div>
+  <div class="mb-3">
+    <label for="cargaHoraria" class="form-label">Carga horária total (em horas)</label>
+    <input type="number" class="form-control" id="cargaHoraria" name="cargaHoraria" value="{{oficina.cargaHoraria}}" min="1" max="40" step="1" required>
+  </div>
+  <button type="submit" class="btn btn-primary">Salvar</button>
+  <a href="/oficinas/{{oficina.id}}" class="btn btn-outline-secondary">Cancelar</a>
+</form>
